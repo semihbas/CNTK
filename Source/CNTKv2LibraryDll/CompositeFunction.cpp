@@ -463,7 +463,7 @@ namespace CNTK
             InvalidArgument("Variable '%S' with unknown DataType found when compiling the Function graph.", variable.AsString().c_str());
 
         if (variable.Shape().IsUnknown())
-            InvalidArgument("Variable '%S' with unknown shape found when compiling the Function graph.", variable.AsString().c_str());
+            InvalidArgument("Variable '%S' with unknown shape found when compiling the Function graph.\nIt might due to ambiguity in scalar broadcast/infer shape for placeholder. Please give the placeholder a fixed shape to avoid the problem.", variable.AsString().c_str());
 
         if (variable.DynamicAxes() == Axis::UnknownDynamicAxes())
             InvalidArgument("Variable '%S' with unknown dynamic axes found when compiling the Function graph.", variable.AsString().c_str());

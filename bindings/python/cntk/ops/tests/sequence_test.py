@@ -420,7 +420,7 @@ def test_op_broadcast_as_in_loop(device_id):
     a = C.input_variable(shape=(1,), name='a')
     b = C.sequence.input_variable(shape=(1,), name='b')
 
-    out_placeholder = C.placeholder()
+    out_placeholder = C.placeholder(shape=b.shape) # need a fixed shape in placeholder avoid ambiguity in scalar broadcast vs. shape infer
     out_delayed = C.sequence.past_value(out_placeholder, time_step=5)
     out_delayed_plus_b = out_delayed + b
     out = C.sequence.broadcast_as(a, out_delayed_plus_b)
