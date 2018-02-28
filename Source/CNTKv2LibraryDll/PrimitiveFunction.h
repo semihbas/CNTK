@@ -507,10 +507,11 @@ namespace CNTK
             auto leftOperandShape = leftOperand.Shape();
             auto rightOperandShape = rightOperand.Shape();
 
-            if (leftOperandShape.IsUnknown())
+            // note that scalar allows broadcasting, so keep unknown shape in that case
+            if (leftOperandShape.IsUnknown() && !rightOperandShape.IsScalar())
                 leftOperandShape = rightOperandShape;
 
-            if (rightOperandShape.IsUnknown())
+            if (rightOperandShape.IsUnknown() && !leftOperandShape.IsScalar())
                 rightOperandShape = leftOperandShape;
 
             // All operand shapes should be known
